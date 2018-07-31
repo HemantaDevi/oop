@@ -1,0 +1,108 @@
+public Trasaction ( float amount){
+this.amount=amount;
+this.trans_id=counter;
+counter++;
+}
+
+public void Display(){
+System.out.println("Transaction details:" + trans_id+""+amount+""+disc_rate);
+}
+
+public float Cost(){
+if(amount<=500000 && amount>=0)
+{
+ disc_rate=1;
+}
+else if(amount<=1000000)
+{
+disc_rate=0.97;
+}
+else if(amount<=5000000)
+{
+disc_rate=0.96;
+}
+else if(amount>=5000000)
+{
+disc_rate=0.90;
+}
+else 
+{
+disc_rate=0;
+}
+return (amount*disc_rate);
+}
+}
+
+public class TransactionTransport extends Trnasaction{
+private String vehicle_type;
+private String distance;
+
+public TransactionTransport( float amount, String vehicle_type,String distance){
+super(amount);
+this.vehicle_type=vehicle_type;
+this.distance=distance;
+}
+
+public void Display(){
+System.out.println("transaction Facilities:" + vehicle_type+distance+ super.display());
+}
+
+public float cost(){
+if (vehicle_type.equals("Mini-truck"))
+{
+ if (distance.equals("short"))
+ {
+   amount=super.amount+200;
+ }
+ if(distance.equals("Average"))
+ {
+  amount=super.amount+400;
+ }
+ if (distance.equals("Long"))
+ {
+ amount=super.amount+600;
+ }
+}
+if (vehicle_type.equals("Lorry"))
+{
+ if (distance.equals("short"))
+ {
+   amount=super.amount+400;
+ }
+ if(distance.equals("Average"))
+ {
+  amount=super.amount+700;
+ }
+ if (distance.equals("Long"))
+ {
+ amount=super.amount+1000;
+ }
+return (amount);
+}
+}
+
+public class CreateTransaction{
+public static void main(String[] args){
+
+Transaction [] arr = new Transaction[5];
+arr[0]=new Transport(300000);
+arr[1]=new TransactionTransport(6500000,"Lorry","far");
+arr[2]=new Transaction (5000);
+arr[3]=new TransactionTransport(8900000,"short","Lorry");
+arr[4]=new TransactionTransport(230000,"short","Mini-truck");
+
+
+float total_charge=0.0;
+for (int i=0; i<5;i++)
+ {
+  arr[i].Display();
+  total_charge=total_charge+arr[i].cost();
+}
+System.out.println("total charge:" + total_charge);
+}
+}
+
+
+
+
+
